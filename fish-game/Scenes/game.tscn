@@ -1,0 +1,140 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3gppoldqatcl"]
+
+[ext_resource type="Script" uid="uid://vfosi7r76xsq" path="res://Scripts/game.gd" id="1_3dryh"]
+[ext_resource type="Texture2D" uid="uid://dgmjbnlei7vgy" path="res://Sprites/FishTank.PNG" id="2_wowpa"]
+[ext_resource type="Script" uid="uid://cnvu4ijqdi12l" path="res://Scripts/player.gd" id="3_i6g32"]
+[ext_resource type="Script" uid="uid://ddqhqdqe2mv6c" path="res://Scripts/grab_body_right.gd" id="4_1l0tm"]
+[ext_resource type="Script" uid="uid://bv210spgbdbg3" path="res://Scripts/timers.gd" id="5_wowpa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80nbo"]
+size = Vector2(1152, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2o6t"]
+size = Vector2(64, 648)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwb40"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feb5d"]
+size = Vector2(20, 50)
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_3dryh")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(593, 171)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_wowpa")
+metadata/_edit_lock_ = true
+
+[node name="Border" type="StaticBody2D" parent="."]
+
+[node name="Top" type="CollisionShape2D" parent="Border"]
+position = Vector2(576, -32)
+shape = SubResource("RectangleShape2D_80nbo")
+
+[node name="Bottom" type="CollisionShape2D" parent="Border"]
+position = Vector2(576, 680)
+shape = SubResource("RectangleShape2D_80nbo")
+
+[node name="Left" type="CollisionShape2D" parent="Border"]
+position = Vector2(-32, 324)
+shape = SubResource("RectangleShape2D_e2o6t")
+
+[node name="Right" type="CollisionShape2D" parent="Border"]
+position = Vector2(1184, 324)
+shape = SubResource("RectangleShape2D_e2o6t")
+
+[node name="Player" type="StaticBody2D" parent="."]
+position = Vector2(576, 324)
+collision_mask = 0
+script = ExtResource("3_i6g32")
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MainBody" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_mwb40")
+
+[node name="GrabBody" type="StaticBody2D" parent="Player"]
+position = Vector2(38, 0)
+collision_mask = 0
+script = ExtResource("4_1l0tm")
+
+[node name="ColorRect" type="ColorRect" parent="Player/GrabBody"]
+visible = false
+custom_minimum_size = Vector2(40, 15)
+offset_left = 7.0
+offset_top = -21.0
+offset_right = 47.0
+offset_bottom = -6.0
+rotation = 1.5707964
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/GrabBody"]
+shape = SubResource("RectangleShape2D_feb5d")
+
+[node name="GrabDirection" type="Label" parent="Player"]
+modulate = Color(0.0056611504, 0.0056611514, 0.00566115, 1)
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+text = "Right"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Labels" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StrikesLeft" type="Label" parent="Labels"]
+layout_mode = 0
+offset_left = 737.0
+offset_right = 1151.0
+offset_bottom = 23.0
+text = "Strikes Left: 3"
+horizontal_alignment = 2
+
+[node name="Score" type="Label" parent="Labels"]
+layout_mode = 0
+offset_right = 205.0
+offset_bottom = 23.0
+text = "Current Score: 0"
+
+[node name="Timers" type="Node" parent="."]
+script = ExtResource("5_wowpa")
+
+[node name="DayNightLabel" type="Label" parent="Timers"]
+offset_left = 507.0
+offset_right = 614.0
+offset_bottom = 23.0
+text = "Day"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LogicTimer" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="ColorRect" type="ColorRect" parent="Timers"]
+offset_left = 587.0
+offset_top = 7.0
+offset_right = 677.0
+offset_bottom = 18.0
+color = Color(1, 1, 0.07016479, 1)
+
+[connection signal="timeout" from="Timers/LogicTimer" to="Timers" method="_on_logic_timer_timeout"]

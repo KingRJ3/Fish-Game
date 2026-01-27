@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpwkp57jo8tkd"]
+
+[ext_resource type="Script" uid="uid://djkvarv7oncde" path="res://Scripts/Fish Logic/fish.gd" id="1_c4ibo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgn23"]
+size = Vector2(40, 15)
+
+[node name="Fish" type="CharacterBody2D"]
+script = ExtResource("1_c4ibo")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(40, 15)
+offset_left = -163.0
+offset_top = -95.0
+offset_right = -123.0
+offset_bottom = -80.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-143, -87.5)
+shape = SubResource("RectangleShape2D_hgn23")
