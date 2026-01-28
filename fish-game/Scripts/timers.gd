@@ -1,7 +1,7 @@
 extends Node
 var day_tick : int = 0
-var fish_tick : Array[int] = [4,0] # max tick, current tick
-var flap_tick : Array[int] = [6,0] # max tick, current tick
+var fish_tick : Array[int] = [4,0,4] # max tick, current tick, reset tick
+var flap_tick : Array[int] = [6,0,6] # max tick, current tick, reset tick
 var game : Node2D
 var is_day : bool = true
 
@@ -61,3 +61,14 @@ func get_color() -> Color:
 
 func game_over() -> void:
 	$LogicTimer.stop()
+
+func reset_timer_properties() -> void:
+	is_day = true
+	$DayNightLabel.text = "Day"
+	$ColorRect.color = Color.YELLOW
+	$ColorRect.size.x = 90
+	fish_tick[0] = fish_tick[2]
+	flap_tick[0] = flap_tick[2]
+	flap_tick[1] = 0
+	fish_tick[1] = 0
+	$LogicTimer.start()

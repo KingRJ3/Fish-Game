@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://co0qifv4gmham"]
+
+[ext_resource type="Script" uid="uid://c6o3nn8t80hvu" path="res://Scenes/RestartButton.gd" id="1_jdibl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pmjg3"]
+size = Vector2(128, 28)
+
+[node name="RestartButton" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = 11.0
+offset_right = 128.0
+offset_bottom = 39.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_jdibl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(64, 25)
+shape = SubResource("RectangleShape2D_pmjg3")
+
+[node name="Timer" type="Timer" parent="Area2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 66.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Restart?"
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="timeout" from="Area2D/Timer" to="Area2D" method="_on_timer_timeout"]

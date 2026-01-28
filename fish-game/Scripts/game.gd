@@ -56,4 +56,15 @@ func give_strike(flap : StaticBody2D):
 		$Labels/Score.text = "Final Score: " + str(score)
 		$Timers.game_over()
 		game_over = true
+		$RestartButton.visible = true
 	flap.queue_free()
+	
+
+func restart_sequence():
+	game_over = false
+	$Timers.reset_timer_properties()
+	score = 0
+	$Labels/Score.text = "Current Score: " + str(score)
+	strikes = 3
+	$Labels/StrikesLeft.text = "Strikes Left: " + str(strikes)
+	

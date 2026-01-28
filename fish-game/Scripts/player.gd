@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends CharacterBody2D
 
 var win_height : int
 var p_height : int

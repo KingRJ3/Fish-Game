@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3gppoldqatcl"]
+[gd_scene load_steps=11 format=3 uid="uid://b3gppoldqatcl"]
 
 [ext_resource type="Script" uid="uid://vfosi7r76xsq" path="res://Scripts/game.gd" id="1_3dryh"]
 [ext_resource type="Texture2D" uid="uid://dgmjbnlei7vgy" path="res://Sprites/FishTank.PNG" id="2_wowpa"]
 [ext_resource type="Script" uid="uid://cnvu4ijqdi12l" path="res://Scripts/player.gd" id="3_i6g32"]
 [ext_resource type="Script" uid="uid://ddqhqdqe2mv6c" path="res://Scripts/grab_body_right.gd" id="4_1l0tm"]
 [ext_resource type="Script" uid="uid://bv210spgbdbg3" path="res://Scripts/timers.gd" id="5_wowpa"]
+[ext_resource type="PackedScene" uid="uid://co0qifv4gmham" path="res://Scenes/restart_button.tscn" id="6_i6g32"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80nbo"]
 size = Vector2(1152, 64)
@@ -45,8 +46,9 @@ shape = SubResource("RectangleShape2D_e2o6t")
 position = Vector2(1184, 324)
 shape = SubResource("RectangleShape2D_e2o6t")
 
-[node name="Player" type="StaticBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(576, 324)
+collision_layer = 3
 collision_mask = 0
 script = ExtResource("3_i6g32")
 
@@ -136,5 +138,9 @@ offset_top = 7.0
 offset_right = 677.0
 offset_bottom = 18.0
 color = Color(1, 1, 0.07016479, 1)
+
+[node name="RestartButton" parent="." instance=ExtResource("6_i6g32")]
+visible = false
+position = Vector2(522, 254)
 
 [connection signal="timeout" from="Timers/LogicTimer" to="Timers" method="_on_logic_timer_timeout"]
