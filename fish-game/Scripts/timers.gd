@@ -71,4 +71,5 @@ func reset_timer_properties() -> void:
 	flap_tick[0] = flap_tick[2]
 	flap_tick[1] = 0
 	fish_tick[1] = 0
+	day_tick = 0
 	$LogicTimer.start()
