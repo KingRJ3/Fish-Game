@@ -68,3 +68,5 @@ func restart_sequence():
 	strikes = 3
 	$Labels/StrikesLeft.text = "Strikes Left: " + str(strikes)
 	
+func explanatory_text(toggle : bool):
+	$ExplanatoryLabels.visible = toggle
