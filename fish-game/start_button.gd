@@ -18,6 +18,7 @@ func _on_timer_timeout() -> void:
 			$Label.text = "3"
 		elif count == 0:
 			$Label.text += " GO!"
+			$"../Music".toggle_music(false)
 		else:
 			$Label.text += " " + str(count)
 		count -= 1

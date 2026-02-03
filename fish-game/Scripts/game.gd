@@ -12,6 +12,7 @@ var game_over : bool = false
 var score : int = 0
 var strikes : int = 3
 
+
 func make_new_fish(fish):
 	fish.set_color($Timers.get_color())
 	next_new_fish.append(fish)
@@ -57,6 +58,7 @@ func give_strike(flap : StaticBody2D):
 		$Timers.game_over()
 		game_over = true
 		$RestartButton.visible = true
+		$Music.toggle_music(true)
 	flap.queue_free()
 	
 
@@ -67,6 +69,8 @@ func restart_sequence():
 	$Labels/Score.text = "Current Score: " + str(score)
 	strikes = 3
 	$Labels/StrikesLeft.text = "Strikes Left: " + str(strikes)
+	$Music.toggle_music(false)
 	
 func explanatory_text(toggle : bool):
 	$ExplanatoryLabels.visible = toggle
+	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3gppoldqatcl"]
+[gd_scene load_steps=15 format=3 uid="uid://b3gppoldqatcl"]
 
 [ext_resource type="Script" uid="uid://vfosi7r76xsq" path="res://Scripts/game.gd" id="1_3dryh"]
 [ext_resource type="Texture2D" uid="uid://dgmjbnlei7vgy" path="res://Sprites/FishTank.PNG" id="2_wowpa"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" uid="uid://bv210spgbdbg3" path="res://Scripts/timers.gd" id="5_wowpa"]
 [ext_resource type="PackedScene" uid="uid://e2yr7nu40f0e" path="res://Scenes/start_button.tscn" id="6_1l0tm"]
 [ext_resource type="PackedScene" uid="uid://co0qifv4gmham" path="res://Scenes/restart_button.tscn" id="6_i6g32"]
+[ext_resource type="AudioStream" uid="uid://b7acfp2l5gtao" path="res://Audio/fishmenusong.wav" id="8_h4fw4"]
+[ext_resource type="Script" uid="uid://bpf5c252pwppl" path="res://Scripts/music.gd" id="8_ldgsr"]
+[ext_resource type="AudioStream" uid="uid://dv7jt46y5ruqu" path="res://Audio/fishsong.wav" id="9_ldgsr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80nbo"]
 size = Vector2(1152, 64)
@@ -244,4 +247,16 @@ text = "^Hold cursor over \"Start\" or \"Restart\" for 3 seconds to begin!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Music" type="Node" parent="."]
+script = ExtResource("8_ldgsr")
+
+[node name="Fishsong" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("9_ldgsr")
+
+[node name="Fishmenusong" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource("8_h4fw4")
+autoplay = true
+
 [connection signal="timeout" from="Timers/LogicTimer" to="Timers" method="_on_logic_timer_timeout"]
+[connection signal="finished" from="Music/Fishsong" to="Music" method="_on_fishsong_finished"]
+[connection signal="finished" from="Music/Fishmenusong" to="Music" method="_on_fishmenusong_finished"]
